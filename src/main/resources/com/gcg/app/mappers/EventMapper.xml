@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.EventDao">
+	
+	<select id="getAllEvents" resultMap="eventsResultMap">
+		select *
+		from event 
+	</select>
+	
+	<select id="getupcomingEvents" resultMap="eventsResultMap">
+		select * 
+		from event 
+		where 
+		start_date &gt; curDate()
+		
+	</select>
+		
+	<select id="getCurrentEvents" resultMap="eventsResultMap">
+		select * 
+		from event 
+		where curDate() between start_date and end_date
+	</select>
+	<select id="getPastEvents" resultMap="eventsResultMap">
+		select * from event where 
+		end_date &lt; curDate() 
+	</select>
+	<insert id="addEvent" parameterType="com.gcg.app.beans.Event"
+	useGeneratedKeys="true" keyProperty="eventId" keyColumn="event_id" flushCache="true">
+		INSERT INTO EVENT(
+			 EVENT_ID,EVENT_NAME, DESCRIPTION, ARTIST_ID, IS_PAID, START_DATE, END_DATE,
+			VENUE_ID, GALLERY_PATH, CATEGORY_ID)
+		VALUES( #{eventId},#{eventName},#{description},#{artistId},#{isPaid},#{startDate},#{endDate}
+				,#{venueId},#{galleryPath},#{categoryId});
+		<selectKey keyProperty="eventId" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID();
+       </selectKey>
+	</insert>
+	<update id="updateGalleryPathById" flushCache="true">
+		UPDATE EVENT 
+		SET GALLERY_PATH = #{galleryPath}
+		WHERE EVENT_ID = #{eventId}	
+	</update>
+	<update id="updateEvent" parameterType="com.gcg.app.beans.Event" flushCache="true">
+		UPDATE EVENT
+		SET 
+		EVENT_NAME = #{eventName},
+		DESCRIPTION = #{description},
+		ARTIST_ID = #{artistId},
+		START_DATE = #{startDate},
+		END_DATE = #{endDate},
+		VENUE_ID = #{venueId},
+		CATEGORY_ID = #{categoryId}
+		WHERE EVENT_ID = #{eventId}
+	</update>
+	<delete id="removeEventById" parameterType="int">
+		DELETE FROM EVENT
+		WHERE EVENT_ID = #{eventId}
+	</delete>
+	<select id="getFilteredEvents" parameterType="com.gcg.app.beans.Event"	resultMap="eventsResultMap"	>
+		SELECT * FROM Event  
+		<where> 
+			<choose>
+			    <when test="eventName != null and startDate != null and endDate != null">
+			      event_name like #{eventName} AND start_date &gt; #{startDate} AND end_date &lt; #{endDate} 
+			    </when>
+			    	   
+			    <otherwise>
+				    <choose>
+					    <when test="eventName != null and startDate == null and endDate == null">
+					      event_name like #{eventName} 
+					    </when>
+					    
+					    <when test="startDate != null and eventName == null and endDate == null">
+					      start_date &gt;= #{startDate}  AND (start_date &lt; #{startDate}  AND end_date &gt;= #{startDate} )
+					    </when>
+				
+					    <when test="endDate != null and eventName == null and startDate == null">
+					      end_date &gt;= curDate() AND end_date &lt;= #{endDate} 
+					    </when>
+			
+					    <when test="startDate != null and endDate != null and eventName == null ">
+					      start_date &gt;= #{startDate} AND end_date &lt;= #{endDate} 
+					    </when>	
+					</choose>  
+			    </otherwise>
+		  	</choose>
+		  	</where>
+		  	<choose>
+			  	<when test="sortingKey == 1">
+			  		order by start_date
+			  	</when>
+			  	<when test="sortingKey == 2">
+			  		order by end_date
+			  	</when>
+			  	<otherwise>
+			  		order by event_name
+			  	</otherwise>
+		  	</choose>
+	  	 
+	</select>
+	<resultMap type="com.gcg.app.beans.Event" id="eventsResultMap">
+		<id column="event_id" property="eventId"></id>
+		<result column="event_name" property="eventName"></result>
+		<result column="description" property="description"></result>
+		<result column="artist_id" property="artistId"></result>
+		<result column="is_Paid" property="isPaid"></result>
+		<result column="start_date" property="startDate"></result>
+		<result column="end_date" property="endDate"></result>
+		<result column="venue_id" property="venueId"></result>
+		<result column="gallery_path" property="galleryPath"></result>
+		<result column="category_id" property="categoryId"></result>
+	</resultMap>
+</mapper>

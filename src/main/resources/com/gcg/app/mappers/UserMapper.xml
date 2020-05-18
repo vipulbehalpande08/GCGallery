@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.UserDao">
+	
+	<insert id="addUser" parameterType="com.gcg.app.beans.User" useGeneratedKeys="true"
+	 keyProperty="userId" keyColumn="user_id" flushCache="true">
+		INSERT INTO USER( FIRST_NAME, LAST_NAME, EMAIL_ID, CONTACT, DESCRIPTION, USER_TYPE,
+		STREET, AREA, CITY, REGION, COUNTRY, PIN, PASSWORD)
+		VALUES(#{firstName}, #{lastName}, #{emailId}, #{contact}, #{description}, #{userType}, 
+		#{street}, #{area}, #{city}, #{region}, #{country}, #{pin}, #{password})
+	</insert>
+	<select id="getArtistDetailsByName" resultMap="UserResultMap">
+	
+	</select>
+	<select id="getUserDetailsByEmailId" resultMap="UserResultMap">
+	
+	</select>
+	<select id="getUsersByUserType" resultMap="UserResultMap">
+		SELECT * FROM USER
+		WHERE USER_TYPE = #{userType}
+	</select>
+	<update id="updateUser" parameterType="com.gcg.app.beans.User">
+		UPDATE USER
+		SET 
+			user_name = #{userName},
+			first_name = #{firstName},
+			last_name = #{lastName},
+			email_id = #{emailId},
+			password = #{password},
+			contact = #{contact},
+			street = #{street},
+			area = #{area},
+			city = #{city},
+			region = #{region},
+			country = #{country},
+			pin = #{pin},
+			description = #{description},
+			user_type = #{userType}
+		WHERE
+			user_id = #{userId}			
+	</update>
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM USER
+		WHERE USER_ID = #{userId}
+	</delete>
+	<resultMap type="com.gcg.app.beans.User" id="UserResultMap">
+		<id column="user_id" property="userId"></id>
+		<result column="user_name" property="username"/>
+		<result column="first_name" property="firstName"/>
+		<result column="last_name" property="lastName"/>
+		<result column="email_id" property="emailId"/>
+		<result column="password" property="password"/>
+		<result column="contact" property="contact"/>
+		<result column="street" property="street"/>
+		<result column="area" property="area"/>
+		<result column="region" property="region"/>
+		<result column="country" property="country"/>
+		<result column="pin" property="pin"/>
+		<result column="is_active" property="isActive"/>
+		<result column="description" property="description"/>
+		<result column="user_type" property="userType"/>
+		
+	</resultMap>
+</mapper>

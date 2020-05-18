@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.VenueDao">
+	
+	<select id="getAllVenue" resultMap="venueResultMap">
+		select * from venue
+	</select>
+	<insert id="addVenue" parameterType="com.gcg.app.beans.Venue" flushCache="true"
+	keyColumn="venue_id" keyProperty="venueId" useGeneratedKeys="true">
+		INSERT INTO VENUE ( venue_name, description, contact, email_id, street, area, city, region, country, pin, is_available,
+		 gallery_path, from_date, to_date, is_stall, available_stalls)
+		VALUES(#{venueName}, #{description},#{contact},#{emailId}, #{street},#{area},#{city},#{region},#{country},#{pin},#{isAvailable},#{galleryPath},#{fromDate},#{toDate},#{isStall},#{availableStalls})
+	</insert>
+	
+	<delete id="removeVenueById" parameterType="int">
+		DELETE FROM VENUE
+		WHERE VENUE_ID = #{venueId}
+	</delete>
+	<update id="updateVenue" parameterType="com.gcg.app.beans.Venue" flushCache="true">
+			UPDATE VENUE
+			SET VENUE_NAME = #{venueName},
+			DESCRIPTION = #{description},
+			CONTACT = #{contact},
+			EMAIL_ID = #{emailId},
+			STREET = #{street},
+			AREA = #{area},
+			CITY = #{city},
+			REGION = #{region},
+			COUNTRY = #{country},
+			PIN = #{pin},
+			IS_AVAILABLE = #{isAvailable},
+			GALLERY_PATH = #{galleryPath},
+			FROM_DATE = #{fromDate},
+			TO_DATE = #{toDate},
+			IS_STALL = #{isStall},
+			AVAILABLE_STALLS = #{availableStalls}		
+			WHERE VENUE_ID = #{venueId}
+		</update>
+	<resultMap type="com.gcg.app.beans.Venue" id="venueResultMap">
+		<id column="venue_id" property="venueId"/>
+		<result column="venue_name" property="venueName" />
+		<result column="description" property="description"/>
+		<result column="contact" property="contact"/>
+		<result column="email_id" property="emailId"/>
+		<result column="street" property="street"/>
+		<result column="area" property="area"/>
+		<result column="city" property="city"/>
+		<result column="region" property="region"/>
+		<result column="country" property="country"/>
+		<result column="pin" property="pin"/>
+		<result column="is_available" property="isAvailable"/>
+		<result column="gallery_path" property="galleryPath"/>
+		<result column="from_date" property="fromDate"/>
+		<result column="to_date" property="toDate"/>
+		<result column="is_stall" property="isStall"/>
+		<result column="available_stalls" property="availableStalls"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.ProductDao">
+	
+	<select id="getAllProduct" resultMap="productsResultMap">
+	select * from product;
+	</select>
+	
+	<insert id="addProduct" parameterType="com.gcg.app.beans.Product"
+	useGeneratedKeys="true" keyProperty="productId" keyColumn="product_id" flushCache="true">
+		INSERT INTO PRODUCT(
+			 PRODUCT_ID,PRODUCT_NAME, DESCRIPTION, PRICE, AVAILABLE_STOCK, CATEGORY_ID, OWNER_ID )
+		VALUES( #{productId},#{productName},#{description},#{price},#{availableStock},#{categoryId},#{ownerId});
+	</insert>
+	
+	<update id="updateProduct" parameterType="com.gcg.app.beans.Product" flushCache="true">
+		UPDATE PRODUCT
+		SET PRODUCT_NAME = #{productName},
+		DESCRIPTION = #{description},
+		PRICE = #{price},
+		AVAILABLE_STOCK = #{availableStock},
+		CATEGORY_ID = #{categoryId},
+		OWNER_ID = #{ownerId}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<select id="getProductByCategoryId" resultMap="productsResultMap">
+		SELECT * FROM PRODUCT WHERE CATEGORY_ID = #{categoryId}
+	</select>
+	
+	<delete id="removeProductById" parameterType="int">
+		DELETE FROM PRODUCT WHERE PRODUCT_ID = #{productId}
+	</delete>
+	
+	<resultMap type="com.gcg.app.beans.Product" id="productsResultMap">
+		<id column="product_id" property="productId"></id>
+		<result column="product_name" property="productName"></result>
+		<result column="description" property="description"></result>
+		<result column="price" property="price"></result>
+		<result column="available_stock" property="availableStock"></result>
+		<result column="category_id" property="categoryId"></result>
+		<result column="owner_id" property="ownerId"></result>
+	</resultMap>
+</mapper>

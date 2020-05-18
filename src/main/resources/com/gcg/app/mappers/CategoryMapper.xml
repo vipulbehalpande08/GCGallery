@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.CategoryDao">
+	
+	<insert id="addCategory" parameterType="com.gcg.app.beans.Category"
+		flushCache="true" keyColumn="category_id" keyProperty="categoryId">
+		INSERT INTO category(category_name
+		<if test="parentCategoryId != 0">
+		, parent_category_id
+		</if>
+		)
+		VALUES(#{categoryName}
+		<if test="parentCategoryId != 0">
+		,#{parentCategoryId}
+		</if>
+		)
+	</insert>	
+	<select id="getAllCategories" resultMap="categoryResultMap">
+		select * from category
+	</select>
+	<update id="updateCategory" parameterType="com.gcg.app.beans.Category" flushCache="true"
+	timeout="20">
+		update category
+		set category_name = #{categoryName}
+		<if test="parentCategoryId>0">,parent_category_id =#{parentCategoryId}</if>
+		where category_id = #{categoryId}
+	</update>
+	<delete id="removeCategory" parameterType="int">
+		DELETE FROM category
+		WHERE category_id = #{categoryId}
+	</delete>
+	<resultMap type="com.gcg.app.beans.Category" id="categoryResultMap">
+		<id column="category_id" property="categoryId"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="parent_category_id" property="parentCategoryId"/>
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcg.app.dao.DonationDao">
+
+
+	<resultMap type="com.gcg.app.beans.Donation" id="donationResultMap">
+		<id column="donation_id" property="donationId"></id>
+		<result column="first_name" property="firstName"/>
+		<result column="last_name" property="lastName"/>
+		<result column="email_id" property="emailId"/>
+		<result column="donation_amount" property="donationAmount"/>
+		<result column="donation_date" property="donationDate"/>
+		<result column="status" property="status"/>	
+	</resultMap>
+</mapper>
