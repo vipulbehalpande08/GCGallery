@@ -26,35 +26,35 @@
 	</select>
 	<insert id="addEvent" parameterType="com.gcg.app.beans.Event"
 	useGeneratedKeys="true" keyProperty="eventId" keyColumn="event_id" flushCache="true">
-		INSERT INTO EVENT(
-			 EVENT_ID,EVENT_NAME, DESCRIPTION, ARTIST_ID, IS_PAID, START_DATE, END_DATE,
-			VENUE_ID, GALLERY_PATH, CATEGORY_ID)
-		VALUES( #{eventId},#{eventName},#{description},#{artistId},#{isPaid},#{startDate},#{endDate}
+		insert into event(
+			 event_id, event_name, description, artist_id, is_paid, start_date, end_date,
+			venue_id, gallery_path, category_id)
+		values( #{eventId},#{eventName},#{description},#{artistId},#{isPaid},#{startDate},#{endDate}
 				,#{venueId},#{galleryPath},#{categoryId});
 		<selectKey keyProperty="eventId" resultType="int" order="AFTER">
-        SELECT LAST_INSERT_ID();
+        select last_insert_id();
        </selectKey>
 	</insert>
 	<update id="updateGalleryPathById" flushCache="true">
-		UPDATE EVENT 
-		SET GALLERY_PATH = #{galleryPath}
-		WHERE EVENT_ID = #{eventId}	
+		update event 
+		set gallery_path = #{galleryPath}
+		where event_id = #{eventId}	
 	</update>
 	<update id="updateEvent" parameterType="com.gcg.app.beans.Event" flushCache="true">
-		UPDATE EVENT
-		SET 
-		EVENT_NAME = #{eventName},
-		DESCRIPTION = #{description},
-		ARTIST_ID = #{artistId},
-		START_DATE = #{startDate},
-		END_DATE = #{endDate},
-		VENUE_ID = #{venueId},
-		CATEGORY_ID = #{categoryId}
-		WHERE EVENT_ID = #{eventId}
+		update event
+		set 
+		event_name = #{eventName},
+		description = #{description},
+		artist_id = #{artistId},
+		start_date = #{startDate},
+		end_date = #{endDate},
+		venue_id = #{venueId},
+		category_id = #{categoryId}
+		where event_id = #{eventId}
 	</update>
 	<delete id="removeEventById" parameterType="int">
-		DELETE FROM EVENT
-		WHERE EVENT_ID = #{eventId}
+		delete from event
+		where event_id = #{eventId}
 	</delete>
 	<select id="getFilteredEvents" parameterType="com.gcg.app.beans.Event"	resultMap="eventsResultMap"	>
 		SELECT * FROM Event  

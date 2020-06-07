@@ -4,12 +4,12 @@
 	
 	<insert id="addCategory" parameterType="com.gcg.app.beans.Category"
 		flushCache="true" keyColumn="category_id" keyProperty="categoryId">
-		INSERT INTO category(category_name
+		insert into category(category_name
 		<if test="parentCategoryId != 0">
 		, parent_category_id
 		</if>
 		)
-		VALUES(#{categoryName}
+		values(#{categoryName}
 		<if test="parentCategoryId != 0">
 		,#{parentCategoryId}
 		</if>
@@ -26,8 +26,8 @@
 		where category_id = #{categoryId}
 	</update>
 	<delete id="removeCategory" parameterType="int">
-		DELETE FROM category
-		WHERE category_id = #{categoryId}
+		delete from category
+		where category_id = #{categoryId}
 	</delete>
 	<resultMap type="com.gcg.app.beans.Category" id="categoryResultMap">
 		<id column="category_id" property="categoryId"/>

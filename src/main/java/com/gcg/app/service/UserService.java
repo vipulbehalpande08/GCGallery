@@ -13,6 +13,6 @@ public interface UserService {
 	public void updateUser(User user);
 	public List<User> getUsersByUserType(String userType);
 	public User getArtistDetailsById(int artistId);
-	public User getUserDetailsByEmailId(String emailId);
+	public boolean getUserDetailsByEmailId(String emailId, String password);
 	public void deleteUserById(int userId);
 }

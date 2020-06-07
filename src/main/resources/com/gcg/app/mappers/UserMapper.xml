@@ -4,23 +4,24 @@
 	
 	<insert id="addUser" parameterType="com.gcg.app.beans.User" useGeneratedKeys="true"
 	 keyProperty="userId" keyColumn="user_id" flushCache="true">
-		INSERT INTO USER( FIRST_NAME, LAST_NAME, EMAIL_ID, CONTACT, DESCRIPTION, USER_TYPE,
-		STREET, AREA, CITY, REGION, COUNTRY, PIN, PASSWORD)
-		VALUES(#{firstName}, #{lastName}, #{emailId}, #{contact}, #{description}, #{userType}, 
+		insert into user( first_name, last_name, email_id, contact, description, user_type,
+		street, area, city, region, country, pin, password)
+		values(#{firstName}, #{lastName}, #{emailId}, #{contact}, #{description}, #{userType}, 
 		#{street}, #{area}, #{city}, #{region}, #{country}, #{pin}, #{password})
 	</insert>
 	<select id="getArtistDetailsByName" resultMap="UserResultMap">
 	
 	</select>
 	<select id="getUserDetailsByEmailId" resultMap="UserResultMap">
-	
+		select * from user
+		where email_id = #{emailId};
 	</select>
 	<select id="getUsersByUserType" resultMap="UserResultMap">
-		SELECT * FROM USER
-		WHERE USER_TYPE = #{userType}
+		select * from user
+		where user_type = #{userType}
 	</select>
 	<update id="updateUser" parameterType="com.gcg.app.beans.User">
-		UPDATE USER
+		UPDATE user
 		SET 
 			user_name = #{userName},
 			first_name = #{firstName},
@@ -40,8 +41,8 @@
 			user_id = #{userId}			
 	</update>
 	<delete id="deleteUserById" parameterType="int">
-		DELETE FROM USER
-		WHERE USER_ID = #{userId}
+		delete from user
+		where user_id = #{userId}
 	</delete>
 	<resultMap type="com.gcg.app.beans.User" id="UserResultMap">
 		<id column="user_id" property="userId"></id>

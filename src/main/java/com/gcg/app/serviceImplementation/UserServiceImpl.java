@@ -71,9 +71,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserDetailsByEmailId(String emailId) {
+	public boolean getUserDetailsByEmailId(String emailId, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		User user=  userDao.getUserDetailsByEmailId(emailId);
+		if(user != null && user.getPassword().equals(password) ){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -8,28 +8,28 @@
 	
 	<insert id="addProduct" parameterType="com.gcg.app.beans.Product"
 	useGeneratedKeys="true" keyProperty="productId" keyColumn="product_id" flushCache="true">
-		INSERT INTO PRODUCT(
-			 PRODUCT_ID,PRODUCT_NAME, DESCRIPTION, PRICE, AVAILABLE_STOCK, CATEGORY_ID, OWNER_ID )
-		VALUES( #{productId},#{productName},#{description},#{price},#{availableStock},#{categoryId},#{ownerId});
+		insert into product(
+			 product_id, product_name, description, price, available_stock, category_id, owner_id )
+		values( #{productId},#{productName},#{description},#{price},#{availableStock},#{categoryId},#{ownerId});
 	</insert>
 	
 	<update id="updateProduct" parameterType="com.gcg.app.beans.Product" flushCache="true">
-		UPDATE PRODUCT
-		SET PRODUCT_NAME = #{productName},
-		DESCRIPTION = #{description},
-		PRICE = #{price},
-		AVAILABLE_STOCK = #{availableStock},
-		CATEGORY_ID = #{categoryId},
-		OWNER_ID = #{ownerId}
-		WHERE PRODUCT_ID = #{productId}
+		update product
+		set product_name = #{productName},
+		description = #{description},
+		price = #{price},
+		available_stock = #{availableStock},
+		category_id = #{categoryId},
+		owner_id = #{ownerId}
+		WHERE product_id = #{productId}
 	</update>
 	
 	<select id="getProductByCategoryId" resultMap="productsResultMap">
-		SELECT * FROM PRODUCT WHERE CATEGORY_ID = #{categoryId}
+		select * from product where category_id = #{categoryId}
 	</select>
 	
 	<delete id="removeProductById" parameterType="int">
-		DELETE FROM PRODUCT WHERE PRODUCT_ID = #{productId}
+		delete from product where product_id = #{productId}
 	</delete>
 	
 	<resultMap type="com.gcg.app.beans.Product" id="productsResultMap">

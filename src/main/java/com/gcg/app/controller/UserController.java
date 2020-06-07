@@ -43,7 +43,10 @@ public class UserController {
 	}
 	@RequestMapping(value="/uploadFile/{userId}", method=RequestMethod.POST)
 	public void uploadFiles(@RequestParam("file") MultipartFile file, @PathVariable String userId){
-		
 		Utils.uploadFile(Constants.USER_UPLOAD_PATH+userId+"/", file, "user");
+	}
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public boolean validateLogin(@RequestParam("username") String username,@RequestParam("password") String password){
+		return userService.getUserDetailsByEmailId(username, password);
 	}
 }
