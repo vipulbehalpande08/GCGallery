@@ -19,11 +19,15 @@ public class Utils {
 			if(dir.exists()){
 				dir.delete();
 			}
+			
 			path = Paths.get(uploadPath, file.getOriginalFilename());
+			System.out.println("Upload path created:"+ path);
 			file.transferTo(path);
+			
 			File old = path.toFile();
 			File f = new File(uploadPath+fileName+".jpg");
 			old.renameTo(f);
+			System.out.println("file renamed:");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("error while uploading file");

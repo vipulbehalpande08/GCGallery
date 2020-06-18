@@ -7,34 +7,34 @@
 	</select>
 	<insert id="addVenue" parameterType="com.gcg.app.beans.Venue" flushCache="true"
 	keyColumn="venue_id" keyProperty="venueId" useGeneratedKeys="true">
-		INSERT INTO VENUE ( venue_name, description, contact, email_id, street, area, city, region, country, pin, is_available,
+		insert into venue ( venue_name, description, contact, email_id, street, area, city, region, country, pin, is_available,
 		 gallery_path, from_date, to_date, is_stall, available_stalls)
-		VALUES(#{venueName}, #{description},#{contact},#{emailId}, #{street},#{area},#{city},#{region},#{country},#{pin},#{isAvailable},#{galleryPath},#{fromDate},#{toDate},#{isStall},#{availableStalls})
+		values(#{venueName}, #{description},#{contact},#{emailId}, #{street},#{area},#{city},#{region},#{country},#{pin},#{isAvailable},#{galleryPath},#{fromDate},#{toDate},#{isStall},#{availableStalls})
 	</insert>
 	
 	<delete id="removeVenueById" parameterType="int">
-		DELETE FROM VENUE
-		WHERE VENUE_ID = #{venueId}
+		delete from venue
+		where venue_id = #{venueId}
 	</delete>
 	<update id="updateVenue" parameterType="com.gcg.app.beans.Venue" flushCache="true">
-			UPDATE VENUE
-			SET VENUE_NAME = #{venueName},
-			DESCRIPTION = #{description},
-			CONTACT = #{contact},
-			EMAIL_ID = #{emailId},
-			STREET = #{street},
-			AREA = #{area},
-			CITY = #{city},
-			REGION = #{region},
-			COUNTRY = #{country},
-			PIN = #{pin},
-			IS_AVAILABLE = #{isAvailable},
-			GALLERY_PATH = #{galleryPath},
-			FROM_DATE = #{fromDate},
-			TO_DATE = #{toDate},
-			IS_STALL = #{isStall},
-			AVAILABLE_STALLS = #{availableStalls}		
-			WHERE VENUE_ID = #{venueId}
+			update venue
+			SET venue_name = #{venueName},
+			description = #{description},
+			contact = #{contact},
+			email_id = #{emailId},
+			street = #{street},
+			area = #{area},
+			city = #{city},
+			region = #{region},
+			country = #{country},
+			pin = #{pin},
+			is_available = #{isAvailable},
+			gallery_path = #{galleryPath},
+			from_date = #{fromDate},
+			to_date = #{toDate},
+			is_stall = #{isStall},
+			available_stalls = #{availableStalls}		
+			where venue_id = #{venueId}
 		</update>
 	<resultMap type="com.gcg.app.beans.Venue" id="venueResultMap">
 		<id column="venue_id" property="venueId"/>

@@ -1,8 +1,14 @@
 package com.gcg.app.util;
 
-public class Constants {
+import org.springframework.beans.factory.annotation.Value;
 
-	public static final String UPLOAD_PATH="C://Stuff/NUIG/project/angular_workspace/GCG-front/src/assets/uploads";
+public class Constants {
+	
+	@Value("${aws.host}")
+	private static String host;
+	
+	public static final String UPLOAD_PATH = "/var/www/html/uploads/";
+//	public static final String UPLOAD_PATH="C://Stuff/NUIG/project/angular_workspace/GCG-front/src/assets/uploads";
 	public static final String ARTIST_UPLOAD_PATH= UPLOAD_PATH+"/artists";
 	public static final String EVENT_UPLOAD_PATH= UPLOAD_PATH+"/events/";
 	public static final String VENUE_UPLOAD_PATH= UPLOAD_PATH+"/venues/";
